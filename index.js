@@ -1,13 +1,14 @@
-const dotenv = require("dotenv");
-const express = require("express");
+const Logger = require("./src/loaders/logger");
+const config = require("./src/config");
+const app = require("./src/app");
 
-dotenv.config();
-
-require("./db");
-
-const app = express();
-
-app.listen(process.env.PORT || 4000, () => {
-    console.log("Server is running!");
-})
-
+app.listen(config.port, () => {
+    Logger.info(`
+      ################################################
+      🛡️  Server listening on port: ${config.port} 🛡️
+      ################################################
+    `);
+}).on("error", (err) => {
+    Logger.error(err);
+    process.exit(1);
+});
