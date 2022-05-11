@@ -1,12 +1,18 @@
-const express = require("express");
-const cors = require("cors");
-const routes = require("../api");
-const config = require("../config");
+import express from "express";
+import cors from "cors";
+import routes from "@/api";
+import config from "@/config";
+import morgan from "morgan";
+import { LoggerStream } from "./logger";
 
-module.exports = (app) => {
+export default ({ app }: { app: express.Application }) => {
+    // API Logger
+    app.use(morgan(process.env.NODE_ENV !== 'development' ? "combined" : "dev", { stream: new LoggerStream() }));
+
     app.get('/status', (req, res) => {
         res.status(200).end();
     });
+
     app.head('/status', (req, res) => {
         res.status(200).end();
     });

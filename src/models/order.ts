@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+import { IOrder } from '@/interfaces/IOrder';
+import mongoose from 'mongoose';
 
-const OrderSchema = new mongoose.Schema(
+const Order = new mongoose.Schema(
   {
     userId: {
       type: String,
@@ -39,7 +40,4 @@ const OrderSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-module.exports = {
-  OrderSchema: OrderSchema,
-  Order: mongoose.model('Order', OrderSchema),
-};
+export default mongoose.model<IOrder & mongoose.Document>('Order', Order);
