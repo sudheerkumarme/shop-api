@@ -1,6 +1,7 @@
-const mongoose = require("mongoose");
-const config = require("../config");
-const Logger = require('./logger');
+import mongoose from "mongoose";
+import { Db } from "mongodb";
+import config from "@/config";
+import Logger from "./logger";
 
 mongoose.connection.on('connected', function (err) {
     Logger.info('✌️ Database connected!');
@@ -22,7 +23,7 @@ process.on('SIGINT', function() {
     }); 
 });
 
-module.exports = async () => {
+export default async (): Promise<Db> => {
     const connection = await mongoose.connect(config.databaseURL);
     return connection.connection.db;
 }

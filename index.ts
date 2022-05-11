@@ -1,6 +1,6 @@
-const Logger = require("./src/loaders/logger");
-const config = require("./src/config");
-const app = require("./src/app");
+import Logger from "./src/loaders/logger";
+import config from "./src/config"
+import app from "./src/app";
 
 app.listen(config.port, () => {
     Logger.info(`

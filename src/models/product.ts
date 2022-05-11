@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+import { IProduct } from '@/interfaces/IProduct';
+import mongoose from 'mongoose';
 
-const ProductSchema = new mongoose.Schema(
+const Product = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -38,7 +39,4 @@ const ProductSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-module.exports = {
-  ProductSchema: ProductSchema,
-  Product: mongoose.model('Product', ProductSchema),
-};
+export default mongoose.model<IProduct & mongoose.Document>('Product', Product);

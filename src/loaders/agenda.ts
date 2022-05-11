@@ -1,7 +1,7 @@
-const Agenda = require("agenda");
-const config = require("../config");
+import Agenda from "agenda/es";
+import config from "@/config";
 
-module.exports = (mongoConnection) => {
+export default ({ mongoConnection }) => {
     return new Agenda({
         mongo: mongoConnection,
         db: { collection: config.agenda.dbCollection },

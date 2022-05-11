@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+import { ICart } from '@/interfaces/ICart';
+import mongoose from 'mongoose';
 
-const CartSchema = new mongoose.Schema(
+const Cart = new mongoose.Schema(
   {
     userId: {
       type: String,
@@ -22,7 +23,4 @@ const CartSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-module.exports = {
-  CartSchema: CartSchema,
-  Cart: mongoose.model('Cart', CartSchema),
-};
+export default mongoose.model<ICart & mongoose.Document>('Cart', Cart);
