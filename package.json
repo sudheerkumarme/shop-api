@@ -14,7 +14,6 @@
     "@types/mongoose": "^5.11.97",
     "@types/node": "^17.0.31",
     "agenda": "^4.2.1",
-    "app-root-path": "^3.0.0",
     "celebrate": "^15.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
