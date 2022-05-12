@@ -1,13 +1,13 @@
-import express from "express";
-import cors from "cors";
-import routes from "@/api";
-import config from "@/config";
-import morgan from "morgan";
-import { LoggerStream } from "./logger";
+import express from 'express';
+import cors from 'cors';
+import routes from '@/api';
+import config from '@/config';
+import morgan from 'morgan';
+import { LoggerStream } from './logger';
 
 export default ({ app }: { app: express.Application }) => {
     // API Logger
-    app.use(morgan(process.env.NODE_ENV !== 'development' ? "combined" : "dev", { stream: new LoggerStream() }));
+    app.use(morgan(process.env.NODE_ENV !== 'development' ? 'combined' : 'dev', { stream: new LoggerStream() }));
 
     app.get('/status', (req, res) => {
         res.status(200).end();
@@ -39,9 +39,9 @@ export default ({ app }: { app: express.Application }) => {
     app.use((err, req, res, next) => {
         res.status(err.status || 500);
         res.json({
-          errors: {
-            message: err.message,
-          },
+            errors: {
+                message: err.message,
+            },
         });
     });
 }
