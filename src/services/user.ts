@@ -76,4 +76,39 @@ export default class UserService {
         }
     };
 
+    public async GetStats(): Promise<{ data: Object }> {
+        try {
+            const date = new Date();
+            const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
+            console.log(date);
+            console.log(lastYear);
+
+            const data = await this.userModel.aggregate([
+                {   
+                    $match: { 
+                        createdAt: { $gte: lastYear } 
+                    },
+                },
+                {
+                    $project: {
+                        month: { $month: "$createdAt" },
+                    },
+                },
+                {
+                    $group: {
+                        _id: "$month",
+                        total: { $sum: 1 },
+                    },
+                },
+            ])
+
+            console.log(data)
+            
+            return { data };
+        } catch (error) {
+            this.logger.error(error);
+            throw error;
+        }
+    };
+
 };

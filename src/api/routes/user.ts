@@ -36,15 +36,15 @@ export default (app: Router) => {
     );
 
     route.get(
-        '/:id',
-        middleware.isAuth,
-        middleware.hasAccess(false, ['admin']),
+        '/stats',
         async (req: Request, res: Response, next: NextFunction) => {
             const logger: Logger = Container.get('logger');
             try {
+                console.log("In stats API")
+                console.log(req)
                 const userServiceInstance = Container.get(UserService);
-                const user = await userServiceInstance.GetUserById(req.params.id as string);
-                return res.status(200).json(user);
+                const data = await userServiceInstance.GetStats();
+                return res.status(200).json(data);
             } catch (error) {
                 logger.error('🔥 error: %o', error);
                 return next(error);
@@ -69,4 +69,21 @@ export default (app: Router) => {
         },
     );
 
+    route.get(
+        '/:id',
+        middleware.isAuth,
+        middleware.hasAccess(false, ['admin']),
+        async (req: Request, res: Response, next: NextFunction) => {
+            const logger: Logger = Container.get('logger');
+            try {
+                const userServiceInstance = Container.get(UserService);
+                const user = await userServiceInstance.GetUserById(req.params.id as string);
+                return res.status(200).json(user);
+            } catch (error) {
+                logger.error('🔥 error: %o', error);
+                return next(error);
+            }
+        },
+    );
+    
 };
