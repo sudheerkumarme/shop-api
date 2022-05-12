@@ -1,52 +1,51 @@
 import winston from 'winston';
 import config from '@/config';
-import appRoot from 'app-root-path';
 
-const options = {
-  file: {
-    level: 'info',
-    filename: `${appRoot}/logs/app.log`,
-    handleExceptions: true,
-    json: true,
-    maxsize: 5242880, // 5MB
-    maxFiles: 5,
-    colorize: false,
-  },
-  console: {
-    level: 'debug',
-    handleExceptions: true,
-    json: false,
-    colorize: true,
-  },
-};
-
-const transports = [];
-if (process.env.NODE_ENV !== 'development') {
-  transports.push(new winston.transports.Console(options.console));
-  transports.push(new winston.transports.File(options.file));
-} else {
-  transports.push(
-    new winston.transports.Console({
-      format: winston.format.combine(winston.format.cli(), winston.format.splat()),
-      ...options.console
+const fileTransport = new winston.transports.File({
+  level: 'info',
+  filename: `logs/app.log`,
+  handleExceptions: true,
+  maxsize: 5242880, // 5MB
+  maxFiles: 5,
+  format: winston.format.combine(
+    winston.format.uncolorize(),
+    winston.format.printf((info) => {
+      const { timestamp, level, message } = info;
+      return `${timestamp} [${level}]: ${message}`;
     }),
-  );
-}
+  ),
+});
+
+const consoleTransport = new winston.transports.Console({
+  level: 'debug',
+  handleExceptions: true,
+  format: winston.format.combine(
+    winston.format.colorize(),
+    winston.format.printf((info) => {
+      const { timestamp, level, message } = info;
+      return `${timestamp} [${level}]: ${message}`;
+    })
+  ),
+});
 
 const LoggerInstance = winston.createLogger({
   level: config.logs.level,
   levels: winston.config.npm.levels,
   format: winston.format.combine(
-    winston.format.timestamp({
-      format: 'YYYY-MM-DD HH:mm:ss',
-    }),
+    winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
     winston.format.errors({ stack: true }),
     winston.format.splat(),
     winston.format.json(),
   ),
-  transports,
   exitOnError: false, // do not exit on handled exceptions
 });
+
+if (process.env.NODE_ENV !== 'development') {
+  LoggerInstance.add(fileTransport);
+  LoggerInstance.add(consoleTransport);
+} else {
+  LoggerInstance.add(consoleTransport);
+}
 
 // create a stream object with a 'write' function that will be used by `morgan`
 export class LoggerStream {
