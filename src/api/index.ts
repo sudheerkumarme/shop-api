@@ -1,6 +1,6 @@
-import { Router } from "express";
-import user from "./routes/user";
-import auth from "./routes/auth";
+import { Router } from 'express';
+import user from './routes/user';
+import auth from './routes/auth';
 
 // guaranteed to get dependencies
 export default () => {

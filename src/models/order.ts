@@ -21,20 +21,20 @@ const Order = new mongoose.Schema(
     ],
 
     amount: {
-        type: Number,
-        required: true,
+      type: Number,
+      required: true,
     },
 
     address: {
-        type: Object,
-        required: true,
+      type: Object,
+      required: true,
     },
 
     status: {
-        type: String,
-        required: true,
-        enum: ["pending", "paid", "intransit", "delivered"],
-        default: "pending",
+      type: String,
+      required: true,
+      enum: ['pending', 'paid', 'intransit', 'delivered'],
+      default: 'pending',
     },
   },
   { timestamps: true },

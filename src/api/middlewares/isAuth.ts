@@ -3,7 +3,7 @@ import { Logger } from 'winston';
 import jwt from 'jsonwebtoken';
 import config from '@/config';
 import { Request, Response, NextFunction } from 'express';
-import { RESPONSE_MESSAGES, RESPONSE_STATUS } from '@/config/constants';
+import { HttpStatusCode, HttpStatusMessage } from '@/config/constants';
 
 const apisToBeByPassed = [];
 const headerTokenAPIs = [];
@@ -22,7 +22,7 @@ const isAuth = (req: Request, res: Response, next: NextFunction) => {
     if (headerTokenAPIs.indexOf(req.path) >= 0) token = req.query.token;
     else token = req.headers.authorization;
 
-    if (!token) return res.status(RESPONSE_STATUS.UNAUTHORIZED).json({ message: RESPONSE_MESSAGES.TOKEN_NOT_FOUND });
+    if (!token) return res.status(HttpStatusCode.UNAUTHORIZED).json({ message: HttpStatusMessage.TOKEN_NOT_FOUND });
 
     token = token.split(' ');
     token = token.length > 1 ? token[1] : token[0];
@@ -33,7 +33,7 @@ const isAuth = (req: Request, res: Response, next: NextFunction) => {
     return next();
   } catch (error) {
     logger.error(error);
-    return res.status(RESPONSE_STATUS.UNAUTHORIZED).json({ message: RESPONSE_MESSAGES.TOKEN_SESSION_EXPIRED });
+    return res.status(HttpStatusCode.UNAUTHORIZED).json({ message: HttpStatusMessage.TOKEN_SESSION_EXPIRED });
   }
 };
 

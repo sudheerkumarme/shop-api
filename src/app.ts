@@ -1,5 +1,5 @@
 import 'reflect-metadata'; // We need this in order to use @Decorators
-import express from "express";
+import express from 'express';
 const app = express();
 
 const startServer = async () => {
