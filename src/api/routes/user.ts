@@ -19,14 +19,14 @@ export default (app: Router) => {
     );
 
     route.put(
-        '/:id',
+        '/:userId',
         middleware.isAuth,
         middleware.hasAccess(true, ['admin']),
         async (req: Request, res: Response, next: NextFunction) => {
             const logger: Logger = Container.get('logger');
             try {
                 const userServiceInstance = Container.get(UserService);
-                const user = await userServiceInstance.UpdateUser(req.params.id as string, req.body as IUserInputDTO);
+                const user = await userServiceInstance.UpdateUser(req.params.userId as string, req.body as IUserInputDTO);
                 return res.status(200).json(user);
             } catch (error) {
                 logger.error('🔥 error: %o', error);
@@ -70,14 +70,14 @@ export default (app: Router) => {
     );
 
     route.get(
-        '/:id',
+        '/:userId',
         middleware.isAuth,
         middleware.hasAccess(false, ['admin']),
         async (req: Request, res: Response, next: NextFunction) => {
             const logger: Logger = Container.get('logger');
             try {
                 const userServiceInstance = Container.get(UserService);
-                const user = await userServiceInstance.GetUserById(req.params.id as string);
+                const user = await userServiceInstance.GetUserById(req.params.userId as string);
                 return res.status(200).json(user);
             } catch (error) {
                 logger.error('🔥 error: %o', error);

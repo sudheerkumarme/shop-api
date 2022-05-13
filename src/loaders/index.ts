@@ -18,12 +18,18 @@ export default async ({ expressApp }) => {
         model: require('../models/product').default,
     };
 
+    const cartModel = {
+        name: 'cartModel',
+        model: require('../models/cart').default,
+    };
+
     // It returns the agenda instance because it's needed in the subsequent loaders
     const { agenda } = await dependencyInjectorLoader({
         mongoConnection,
         models: [
             userModel,
             productModel,
+            cartModel,
         ],
     });
     Logger.info('✌️ Dependency Injector loaded');

@@ -7,6 +7,7 @@ export interface IProduct {
   size: string;
   color: string;
   price: number;
+  quantity: number;
 }
 
 export interface IProductInputDTO {
@@ -17,4 +18,5 @@ export interface IProductInputDTO {
   size: string;
   color: string;
   price: number;
+  quantity: number;
 }
