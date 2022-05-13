@@ -12,6 +12,8 @@ export interface IProduct {
 export interface IProductInputDTO {
   title: string;
   desc: string;
+  img: string;
+  categories: Array<string>;
   size: string;
   color: string;
   price: number;

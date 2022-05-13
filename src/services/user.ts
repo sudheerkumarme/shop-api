@@ -62,7 +62,7 @@ export default class UserService {
 
             const users = await this.userModel.find(
                 {
-                    ...(lastUserId && { createdAt: { $lt: lastUserId } })
+                    ...(lastUserId && { _id: { $lt: lastUserId } })
                 }, {
                 password: 0,
                 salt: 0
