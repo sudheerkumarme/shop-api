@@ -91,10 +91,7 @@ export default class ProductService {
                 {
                     ...(lastProductId && { _id: { $lt: lastProductId } }),
                     ...(category && { categories: { $in: [category] } })
-                }, {
-                password: 0,
-                salt: 0
-            }
+                }
             ).sort({ _id: -1 }).limit(productLimit);
 
             return { products, productCount };

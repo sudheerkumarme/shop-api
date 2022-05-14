@@ -69,10 +69,7 @@ export default class CartService {
             const carts = await this.cartModel.find(
                 {
                     ...(lastCartId && { _id: { $lt: lastCartId } }),
-                }, {
-                password: 0,
-                salt: 0
-            }
+                }
             ).sort({ _id: -1 }).limit(productLimit);
 
             return { carts, cartCount };

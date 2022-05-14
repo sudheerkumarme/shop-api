@@ -4,7 +4,6 @@ export interface IOrder {
   products: Array<object>;
   amount: number;
   address: object;
-  img: string;
   status: string;
 }
 
@@ -13,5 +12,4 @@ export interface IOrderInputDTO {
   products: Array<object>;
   amount: number;
   address: object;
-  img: string;
 }

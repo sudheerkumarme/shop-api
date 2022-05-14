@@ -3,6 +3,7 @@ import user from './routes/user';
 import auth from './routes/auth';
 import product from './routes/product';
 import cart from './routes/cart';
+import order from './routes/order';
 
 // guaranteed to get dependencies
 export default () => {
@@ -11,6 +12,7 @@ export default () => {
 	user(app);
 	product(app);
 	cart(app);
+	order(app);
 
 	return app
 }
