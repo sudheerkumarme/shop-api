@@ -24,4 +24,5 @@ export default {
         pooltime: process.env.AGENDA_POOL_TIME,
         concurrency: parseInt(process.env.AGENDA_CONCURRENCY, 10),
     },
+    stripeSecret: process.env.STRIPE_SECRET_KEY
 };
