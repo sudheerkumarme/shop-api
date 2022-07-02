@@ -4,8 +4,8 @@ export interface IProduct {
   desc: string;
   img: string;
   categories: Array<string>;
-  size: string;
-  color: string;
+  size: Array<string>;
+  color: Array<string>;
   price: number;
   quantity: number;
 }
@@ -15,8 +15,8 @@ export interface IProductInputDTO {
   desc: string;
   img: string;
   categories: Array<string>;
-  size: string;
-  color: string;
+  size: Array<string>;
+  color: Array<string>;
   price: number;
   quantity: number;
 }

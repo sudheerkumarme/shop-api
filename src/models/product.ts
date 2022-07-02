@@ -24,11 +24,11 @@ const Product = new mongoose.Schema(
     },
 
     size: {
-      type: String,
+      type: Array,
     },
 
     color: {
-      type: String,
+      type: Array,
     },
 
     price: {
@@ -39,6 +39,11 @@ const Product = new mongoose.Schema(
     quantity: {
       type: Number,
       default: 1,
+    },
+
+    inStock: {
+      type: Boolean,
+      default: true,
     },
   },
   { timestamps: true },
